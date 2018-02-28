@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Advert</h1>
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ advert.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ advert.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ advert.description }}</td>
+            </tr>
+            <tr>
+                <th>Picture</th>
+                <td><img style="max-width: 200px" src="/uploads/pictures/{{advert.picture}}" /></td>
+            </tr>
+            <tr>
+                <th>Expiredate</th>
+                <td>{% if advert.expireDate %}{{ advert.expireDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Comments:</th>
+                <td>{% for comment in advert.comments %} <li>{{ comment.commentContent }}</li> {% endfor %}</td>
+            </tr>
+        </tbody>
+    </table>
+        {{ form_start(comment_form) }}
+        {{ form_widget(comment_form) }}
+        {{ form_end(comment_form) }}
+    <ul>
+        <li>
+            <a href="{{ path('advert_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('advert_edit', { 'id': advert.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
